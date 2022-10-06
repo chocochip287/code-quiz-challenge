@@ -6,6 +6,10 @@ console.log("Sam, your questions");
 var questionsObj = {
   questions: ["Which of the following is the primary role of JavaScript in web design?", "What is the result of the operation 4 % 2?", "What does the pop() method do to an array?", "What will the console output if a user enters 'console.log(isNaN(5));?", "Which option increases the value of i by one each time it occurs?"],
 }
+
+// create objects containing the answer sets for each question
+
+
 // need to keep a count of the question that is displayed
 // need to keep score
 // need to keep the time
