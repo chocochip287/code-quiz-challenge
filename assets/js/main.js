@@ -3,6 +3,9 @@
 // there may be more steps and corrections to be made in future
 console.log("Sam, your questions");
 // need a collection of objects that hold the questions
+var questionsObj = {
+  questions: ["Which of the following is the primary role of JavaScript in web design?", "What is the result of the operation 4 % 2?", "What does the pop() method do to an array?", "What will the console output if a user enters 'console.log(isNaN(5));?", "Which option increases the value of i by one each time it occurs?"],
+}
 // need to keep a count of the question that is displayed
 // need to keep score
 // need to keep the time
