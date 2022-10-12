@@ -11,14 +11,12 @@ var h1El = document.createElement("h1");
 
 // core text content
 
-// updating the page's title
 anchorEl.textContent = "this will be the high scores link";
-
 navDivEl.textContent = "the timer will go here"
 h1El.textContent = "This is the header for the main content. It will be the question text and like.. each phase's main declaration."
 pEl.textContent = "This is the paragraph tag in the main section. It's where content text will appear on the start screen and other appropriate screens"
 
-// class and id selector variables
+// class and id selector variables, if I end up using them.
 
 // appending elements into the body tag
 body.appendChild(header);
