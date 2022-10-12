@@ -6,27 +6,33 @@ var navEl = document.createElement("nav");
 var navDivEl = document.createElement("div");
 var anchorEl = document.createElement("a");
 var mainDiv = document.createElement("div");
+var pEl = document.createElement("p");
+var h1El = document.createElement("h1");
 
 // core text content
 
 // updating the page's title
 anchorEl.textContent = "this will be the high scores link";
-mainDiv.textContent = "this is filler/placeholder text content for the main div";
+
 navDivEl.textContent = "the timer will go here"
+h1El.textContent = "This is the header for the main content. It will be the question text and like.. each phase's main declaration."
+pEl.textContent = "This is the paragraph tag in the main section. It's where content text will appear on the start screen and other appropriate screens"
 
 // class and id selector variables
 
 // appending elements into the body tag
 body.appendChild(header);
 body.appendChild(mainDiv);
+mainDiv.appendChild(h1El);
+mainDiv.appendChild(pEl);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
 navEl.appendChild(navDivEl);
 
 // setting up attributes for the appended elements
-body.setAttribute("style", "background: rgb(106, 121, 149)");
+body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
 header.setAttribute("style", "margin: 5px; border: 2px solid white")
-mainDiv.setAttribute("style", "border: 2px solid black; margin: 5px");
+mainDiv.setAttribute("style", "border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;")
 navDivEl.setAttribute("style", "border: solid 1px red")
