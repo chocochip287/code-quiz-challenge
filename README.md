@@ -5,4 +5,4 @@ This page contains a very brief quiz on a handful of JavaScript topics. It is in
 The application's current state can be viewed [here](https://chocochip287.github.io/code-quiz-challenge/). As of 10/12/2022 the project is very much in a foundational state and is not intended to be a finished product.
 
 ## Screenshot
-![Homepage screenshot](./assets/images/homepage-screenshot.png)
+![Homepage screenshot](./assets/images/code-quiz-screenshot.png)
