@@ -1,31 +1,37 @@
-// base level variables
+// core variables
 
 var body = document.body;
 var header = document.createElement("header");
-var anchorEl = document.createElement("a")
-var h1El = document.createElement("h1");
-var divEl = document.createElement("div");
+var navEl = document.createElement("nav");
+var navDivEl = document.createElement("div");
+var anchorEl = document.createElement("a");
+var mainDiv = document.createElement("div");
+
+// core text content
+
+// updating the page's title
+anchorEl.textContent = "this will be the high scores link";
+mainDiv.textContent = "this is filler/placeholder text content for the main div";
+navDivEl.textContent = "the timer will go here"
 
 // class and id selector variables
-var mainDiv = document.querySelector(".mainDiv");
 
 // appending elements into the body tag
 body.appendChild(header);
-body.appendChild(divEl);
-header.appendChild(anchorEl);
+body.appendChild(mainDiv);
+header.appendChild(navEl);
+navEl.appendChild(anchorEl);
+navEl.appendChild(navDivEl);
 
 // setting up attributes for the appended elements
 body.setAttribute("style", "background: rgb(106, 121, 149)");
-body.children[1].setAttribute("style", "margin: 5px; border: 2px solid white")
+header.setAttribute("style", "margin: 5px; border: 2px solid white")
+mainDiv.setAttribute("style", "border: 2px solid black; margin: 5px");
+mainDiv.setAttribute("class", "mainDiv");
+navEl.setAttribute("style", "display: flex; justify-content: space-between;")
+navDivEl.setAttribute("style", "border: solid 1px red")
 // be sure to change the google placeholder link to a high scores link
 anchorEl.setAttribute("href", "https://www.google.com");
-divEl.setAttribute("style", "border: 2px solid black; margin: 5px");
-divEl.setAttribute("class", "mainDiv");
-
-// core text content
-header.textContent = "this is filler/placeholder text for the header"
-anchorEl.textContent = "this will be the high scores link";
-divEl.textContent = "this is filler/placeholder text content for the main div";
 
 // need a collection of objects that hold the questions
 var questionsObj = {
