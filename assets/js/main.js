@@ -2,20 +2,30 @@
 
 var body = document.body;
 var header = document.createElement("header");
+var anchorEl = document.createElement("a")
 var h1El = document.createElement("h1");
-var mainDivEl = document.createElement("div");
+var divEl = document.createElement("div");
+
+// class and id selector variables
+var mainDiv = document.querySelector(".mainDiv");
 
 // appending elements into the body tag
 body.appendChild(header);
-body.appendChild(mainDivEl);
+body.appendChild(divEl);
+header.appendChild(anchorEl);
 
+// setting up attributes for the appended elements
 body.setAttribute("style", "background: rgb(106, 121, 149)");
-header.setAttribute("style", "margin: 5px; border: 2px solid white")
-mainDivEl.setAttribute("style", "border: 2px solid black; margin: 5px");
+body.children[1].setAttribute("style", "margin: 5px; border: 2px solid white")
+// be sure to change the google placeholder link to a high scores link
+anchorEl.setAttribute("href", "https://www.google.com");
+divEl.setAttribute("style", "border: 2px solid black; margin: 5px");
+divEl.setAttribute("class", "mainDiv");
 
 // core text content
 header.textContent = "this is filler/placeholder text for the header"
-mainDivEl.textContent = "this is filler text content for the main div";
+anchorEl.textContent = "this will be the high scores link";
+divEl.textContent = "this is filler/placeholder text content for the main div";
 
 // need a collection of objects that hold the questions
 var questionsObj = {
@@ -35,10 +45,12 @@ var answersObj = {
 // need to keep score
 // need to keep the time
 
-
+// function to start the timer
 function startTimer(){
 
 }
+
+// function to present and cycle questions
 function addQuestion(){
   // create the question elements
 
