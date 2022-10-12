@@ -3,9 +3,20 @@
 var body = document.body;
 var header = document.createElement("header");
 var h1El = document.createElement("h1");
+var mainDivEl = document.createElement("div");
 
-// this is the starting point for this commentary,
-// there may be more steps and corrections to be made in future
+// appending elements into the body tag
+body.appendChild(header);
+body.appendChild(mainDivEl);
+
+body.setAttribute("style", "background: rgb(106, 121, 149)");
+header.setAttribute("style", "margin: 5px; border: 2px solid white")
+mainDivEl.setAttribute("style", "border: 2px solid black; margin: 5px");
+
+// core text content
+header.textContent = "this is filler/placeholder text for the header"
+mainDivEl.textContent = "this is filler text content for the main div";
+
 // need a collection of objects that hold the questions
 var questionsObj = {
   questions: ["Which of the following is the primary role of JavaScript in web design?", "What is the result of the operation 4 % 2?", "What does the pop() method do to an array?", "What will the console output if a user enters 'console.log(isNaN(5));?", "Which option increases the value of i by one each time it occurs?"],
