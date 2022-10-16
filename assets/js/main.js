@@ -8,13 +8,15 @@ var anchorEl = document.createElement("a");
 var mainDiv = document.createElement("div");
 var pEl = document.createElement("p");
 var h1El = document.createElement("h1");
+var startButton = document.createElement("button");
 
 // core text content
 
 anchorEl.textContent = "this will be the high scores link";
-navDivEl.textContent = "the timer will go here"
-h1El.textContent = "This is the header for the main content. It will be the question text and like.. each phase's main declaration."
-pEl.textContent = "This is the paragraph tag in the main section. It's where content text will appear on the start screen and other appropriate screens"
+navDivEl.textContent = "the timer will go here";
+h1El.textContent = "Coding Quiz Challenge";
+pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time. Incorrect answers will reduce it.";
+startButton.textContent = "Start!";
 
 // class and id selector variables, if I end up using them.
 
@@ -23,6 +25,7 @@ body.appendChild(header);
 body.appendChild(mainDiv);
 mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
+mainDiv.appendChild(startButton);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
 navEl.appendChild(navDivEl);
@@ -30,7 +33,7 @@ navEl.appendChild(navDivEl);
 // setting up attributes for the appended elements
 body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
 header.setAttribute("style", "margin: 5px; border: 2px solid white")
-mainDiv.setAttribute("style", "border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
+mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;")
 navDivEl.setAttribute("style", "border: solid 1px red")
