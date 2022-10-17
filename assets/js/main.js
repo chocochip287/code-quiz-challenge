@@ -10,7 +10,7 @@ var pEl = document.createElement("p");
 var h1El = document.createElement("h1");
 var startButton = document.createElement("input");
 var timerButton = document.createElement("input");
-var timeLeft = "300";
+var timeLeft = "xx";
 
 // core text content
 
@@ -68,6 +68,9 @@ var answersObj = {
 timerButton.addEventListener("click", function startTimer(){
   timeLeft = 50;
   navDivEl.textContent = "Time left: " + timeLeft;
+  var testTimer = setInterval(function () {
+    
+  })
 });
 
 // function to present and cycle questions
