@@ -10,11 +10,12 @@ var pEl = document.createElement("p");
 var h1El = document.createElement("h1");
 var startButton = document.createElement("input");
 var timerButton = document.createElement("input");
+var timeLeft = "300";
 
 // core text content
 
 anchorEl.textContent = "this will be the high scores link";
-navDivEl.textContent = "the timer will go here";
+navDivEl.textContent = "Time left: " + timeLeft;
 h1El.textContent = "Coding Quiz Challenge";
 pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time. Incorrect answers will reduce it.";
 
@@ -39,6 +40,7 @@ mainDiv.setAttribute("class", "mainDiv");
 startButton.setAttribute("type", "button");
 startButton.setAttribute("value", "Start!");
 timerButton.setAttribute("type", "button");
+timerButton.setAttribute("value", "run the timer");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivEl.setAttribute("style", "border: solid 1px red")
 // be sure to change the google placeholder link to a high scores link
@@ -63,9 +65,10 @@ var answersObj = {
 // need to keep the time
 
 // function to start the timer
-function startTimer(){
-
-}
+timerButton.addEventListener("click", function startTimer(){
+  timeLeft = 50;
+  navDivEl.textContent = "Time left: " + timeLeft;
+});
 
 // function to present and cycle questions
 function addQuestion(){
