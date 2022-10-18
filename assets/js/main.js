@@ -78,7 +78,7 @@ timerButton.addEventListener("click", function startTimer(){
     } else {
       navDivEl.textContent = "Time's up!";
       timesUp();
-      clearInterval(timeInterval);
+      clearInterval();
     }
   }, 1000);
 });
