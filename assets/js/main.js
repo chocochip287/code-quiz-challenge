@@ -66,11 +66,21 @@ var answersObj = {
 
 // function to start the timer
 timerButton.addEventListener("click", function startTimer(){
-  timeLeft = 50;
-  navDivEl.textContent = "Time left: " + timeLeft;
+  timeLeft = 10;
+  navDivEl.textContent = "Time left: " + timeLeft + " seconds.";
   var testTimer = setInterval(function () {
-    
-  })
+    if (timeLeft > 1) {
+      navDivEl.textContent = "Time left: " + timeLeft + " seconds.";
+      timeLeft--;
+    } else if (timeLeft === 1) {
+      navDivEl.textContent = "Time left: " + timeLeft + " second.";
+      timeLeft--;
+    } else {
+      navDivEl.textContent = "Time's up!";
+      timesUp();
+      clearInterval(timeInterval);
+    }
+  }, 1000);
 });
 
 // function to present and cycle questions
@@ -111,3 +121,9 @@ startButton.addEventListener("click", function startQuiz() {
   // need a function call to present the question
 });
 
+// function that runs if the user runs out of time.
+
+function timesUp() {
+  h1El.textContent = "oh noes, you ran out of time!";
+
+}
