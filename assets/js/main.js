@@ -4,7 +4,6 @@
 - Need to set up question displays and inputs. Set up right/wrong feedback responses with a delay before presenting next question. Use a function to respond right/wrong depending on the answer.
 - Style the entire app.
 
-
 */
 
 // core variables
@@ -17,10 +16,13 @@ var anchorEl = document.createElement("a");
 var mainDiv = document.createElement("div");
 var pEl = document.createElement("p");
 var h1El = document.createElement("h1");
-var timeLeft = "xx";
-var score = 0;
+var testDiv = document.createElement("div");
 
-// buttons
+// input and submission button for scores
+var initInput = document.createElement("input");
+var scoreSubmit = document.createElement("input");
+
+// more buttons
 var startButton = document.createElement("input");
 var timerButton = document.createElement("input");
 var a1Button = document.createElement("input");
@@ -28,12 +30,16 @@ var a2Button = document.createElement("input");
 var a3Button = document.createElement("input");
 var a4Button = document.createElement("input");
 
+// 
+var timeLeft = "xx";
+var score = 0;
+
 // core text content
 
 anchorEl.textContent = "this will be the high scores link";
 navDivTime.textContent = "Time left: " + timeLeft;
 h1El.textContent = "Coding Quiz Challenge";
-pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time. Incorrect answers will reduce it.";
+pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time while incorrect answers will reduce it.";
 
 // class and id selector variables, if I end up using them.
 
@@ -43,6 +49,7 @@ body.appendChild(mainDiv);
 mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
 mainDiv.appendChild(startButton);
+mainDiv.appendChild(testDiv);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
 navEl.appendChild(navDivTime);
@@ -70,10 +77,10 @@ var questionsObj = {
 
 var answersObj = {
   answers0: ["Defining the content of a webpage", "Setting the layout of a webpage", "Adding interactivity and behavior to a webpage", "Ensuring a webpage appears in search engines"],
-  answers1: ["!"],
-  answers2: ["?"],
-  answers3: ["@"],
-  answers4: ["%"]
+  answers1: ["0", "2", "NaN", ".5"],
+  answers2: ["Duplicates all values in the array", "Removes the last element of an array", "Deletes the entire array", "Changes the array values to Starburst flavors"],
+  answers3: ["true", "5", "Go Eagles!", "false"],
+  answers4: ["i + 5", "i--", "i++", "i**"]
 }
 
 // function to start the timer and begin the quiz
