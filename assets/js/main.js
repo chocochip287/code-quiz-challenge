@@ -3,7 +3,7 @@
 - Score doesn't display during the quiz - only at the end.
 - Need to set up question displays and inputs. Set up right/wrong feedback responses with a delay before presenting next question. Use a function to respond right/wrong depending on the answer.
 - Style the entire app.
-
+- set up .button assignment with a function that calls on initial loading then every time phase cycling occurs
 */
 
 // core variables
