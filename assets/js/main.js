@@ -24,15 +24,17 @@ var scoreSubmit = document.createElement("input");
 
 // more buttons
 var startButton = document.createElement("input");
-var timerButton = document.createElement("input");
 var a1Button = document.createElement("input");
 var a2Button = document.createElement("input");
 var a3Button = document.createElement("input");
 var a4Button = document.createElement("input");
+// special button for testing page content and function - not intended for final release
+var testButton = document.createElement("input");
 
 // 
 var timeLeft = "xx";
 var score = 0;
+var answered = 0;
 
 // core text content
 
@@ -62,6 +64,7 @@ mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5
 mainDiv.setAttribute("class", "mainDiv");
 startButton.setAttribute("type", "button");
 startButton.setAttribute("value", "Start!");
+startButton.setAttribute("style", "background: pink;")
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
 // be sure to change the google placeholder link to a high scores link
@@ -73,19 +76,25 @@ var questionsObj = {
   questions: ["Which of the following is the primary role of JavaScript in web design?", "What is the result of the operation 4 % 2?", "What does the pop() method do to an array?", "What will the console output if a user enters 'console.log(isNaN(5));?", "Which option increases the value of i by one each time it occurs?"],
 }
 
-// object that contains answers that correspond to the index of the related question from questionsObj
+// object containing answers that correspond to the index of the related question from questionsObj
 
 var answersObj = {
+  // [2] is correct
   answers0: ["Defining the content of a webpage", "Setting the layout of a webpage", "Adding interactivity and behavior to a webpage", "Ensuring a webpage appears in search engines"],
+  // [0] is correct
   answers1: ["0", "2", "NaN", ".5"],
+  // [1] is correct
   answers2: ["Duplicates all values in the array", "Removes the last element of an array", "Deletes the entire array", "Changes the array values to Starburst flavors"],
+  // [3] is correct
   answers3: ["true", "5", "Go Eagles!", "false"],
+  // [1] is correct
   answers4: ["i + 5", "i--", "i++", "i**"]
 }
 
 // function to start the timer and begin the quiz
 startButton.addEventListener("click", function startTimer(){
   timeLeft = 10;
+  testQuestions();
   navDivTime.textContent = "Time left: " + timeLeft + " seconds.";
   var testTimer = setInterval(function () {
     if (timeLeft > 1) {
@@ -104,19 +113,15 @@ startButton.addEventListener("click", function startTimer(){
 
 // function to present and cycle questions
 
-function addQuestion(){
-  // create the question elements
-
-  // modify the text/attributes
-  // modify one of the attributes to say right or wrong
-
-  // append all elements to something on the page
-
-  // for all the buttons, add event listener
-
+function testQuestions(){
+  for (let i = 0; (i < questionsObj.questions.length) ; i++) {
+    h1El.textContent = questionsObj.questions[i];
+    pEl.appendChild(a1Button);
+    pEl.appendChild(a2Button);
+    pEl.appendChild(a3Button);
+    pEl.appendChild(a4Button);
+  }
 }
-
-// event listener that begins the quiz on clicking start
 
 // function that runs if the user runs out of time.
 
