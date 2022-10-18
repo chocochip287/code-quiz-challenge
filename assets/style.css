@@ -1,3 +1,9 @@
-input:hover {
-    background: black;
+.button {
+    color: rgb(255,255,255);
+    background-color: rgb(92, 31, 92);
+}
+
+.button:hover {
+    color: rgb(0,0,0);
+    background: rgb(189, 140, 182);
 }

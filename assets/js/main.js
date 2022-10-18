@@ -31,7 +31,7 @@ var a4Button = document.createElement("input");
 // special button for testing page content and function - not intended for final release
 var testButton = document.createElement("input");
 
-// 
+// test misc variables 
 var timeLeft = "xx";
 var score = 0;
 var answered = 0;
@@ -44,6 +44,8 @@ h1El.textContent = "Coding Quiz Challenge";
 pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time while incorrect answers will reduce it.";
 
 // class and id selector variables, if I end up using them.
+
+var buttons = document.querySelectorAll("input");
 
 // appending elements into the body tag
 body.appendChild(header);
@@ -62,15 +64,13 @@ body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
 header.setAttribute("style", "margin: 5px; border: 2px solid white")
 mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
+startButton.setAttribute("class", "button")
 startButton.setAttribute("type", "button");
 startButton.setAttribute("value", "Start!");
-startButton.setAttribute("style", "background: pink;")
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
 // be sure to change the google placeholder link to a high scores link
 anchorEl.setAttribute("href", "https://www.google.com");
-
-// object that contains the quiz questions
 
 var questionsObj = {
   questions: ["Which of the following is the primary role of JavaScript in web design?", "What is the result of the operation 4 % 2?", "What does the pop() method do to an array?", "What will the console output if a user enters 'console.log(isNaN(5));?", "Which option increases the value of i by one each time it occurs?"],
@@ -130,3 +130,18 @@ function timesUp() {
   // set up div content to allow the usual score display and name entry
 
 }
+
+/*
+Anything down here in the slag heap didn't work as intended. Revisit later.
+---------------
+// loop(s) for mass class assignment
+// assigns all input tags to the button class
+/*
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].setAttribute("class", "button")
+}
+
+// object that contains the quiz questions
+
+
+*/
