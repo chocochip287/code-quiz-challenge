@@ -4,6 +4,7 @@
 - Need to set up question displays and inputs. Set up right/wrong feedback responses with a delay before presenting next question. Use a function to respond right/wrong depending on the answer.
 - Style the entire app. (todo: align buttons in their own div)
 - scores should be stored locally in an array
+- style buttonDiv to align buttons and list in column
 */
 
 // core variables
@@ -17,6 +18,9 @@ var mainDiv = document.createElement("div");
 var pEl = document.createElement("p");
 var h1El = document.createElement("h1");
 var resultDiv = document.createElement("div");
+var buttonDiv = document.createElement("div");
+// empty array to be used for locally storing scores
+var scores = [];
 
 // input and submission button for scores
 var initInput = document.createElement("input");
@@ -52,8 +56,9 @@ body.appendChild(header);
 body.appendChild(mainDiv);
 mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
-mainDiv.appendChild(startButton);
-mainDiv.appendChild(testButton);
+mainDiv.appendChild(buttonDiv);
+buttonDiv.appendChild(startButton);
+buttonDiv.appendChild(testButton);
 mainDiv.appendChild(resultDiv);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
@@ -65,6 +70,7 @@ body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
 header.setAttribute("style", "margin: 5px; border: 2px solid white")
 mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
+buttonDiv.setAttribute("style", "display: flex; justify-content: ")
 startButton.setAttribute("class", "button")
 startButton.setAttribute("type", "button");
 startButton.setAttribute("value", "Start!");
@@ -158,7 +164,7 @@ testButton.addEventListener("click", function goHome() {
 });
 
 /*
-Anything down here in the slag heap didn't work as intended. Revisit later.
+Anything down here in the slag heap didn't work as intended or is meant to be fleshed out later.
 ---------------
 // loop(s) for mass class assignment
 // assigns all input tags to the button class
@@ -167,7 +173,13 @@ for (var i = 0; i < buttons.length; i++) {
   buttons[i].setAttribute("class", "button")
 }
 
-// object that contains the quiz questions
+// functions for collecting and rendering score data
 
+function renderScores() {
 
+}
+
+function init() {
+  //TODO load the scores from localstorage
+}
 */
