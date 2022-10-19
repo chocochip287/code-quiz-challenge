@@ -1,9 +1,32 @@
+* {
+    font-family: Arial, "Times New Roman", sans-serif;
+}
+
 .button {
     color: rgb(255,255,255);
     background-color: rgb(92, 31, 92);
+    margin: 2px;
+    border-radius: 5px;
+    font-size: 22px;
 }
 
 .button:hover {
     color: rgb(0,0,0);
     background: rgb(189, 140, 182);
+    margin: 2px;
+    border-radius: 5px;
+    font-size: 22px;
+}
+
+.button:active {
+    color: rgb(0,0,0);
+    background: rgb(189, 140, 182);
+    margin: 2px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    font-size: 22px;
+}
+
+.hide-me {
+    display: none;
 }

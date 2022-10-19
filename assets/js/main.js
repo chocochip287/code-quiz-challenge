@@ -53,6 +53,7 @@ body.appendChild(mainDiv);
 mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
 mainDiv.appendChild(startButton);
+mainDiv.appendChild(testButton);
 mainDiv.appendChild(testDiv);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
@@ -67,6 +68,21 @@ mainDiv.setAttribute("class", "mainDiv");
 startButton.setAttribute("class", "button")
 startButton.setAttribute("type", "button");
 startButton.setAttribute("value", "Start!");
+testButton.setAttribute("class", "button");
+testButton.setAttribute("type", "button");
+testButton.setAttribute("value", "test");
+a1Button.setAttribute("class", "button");
+a1Button.setAttribute("type", "button");
+a1Button.setAttribute("value", "1");
+a2Button.setAttribute("class", "button");
+a2Button.setAttribute("type", "button");
+a2Button.setAttribute("value", "2");
+a3Button.setAttribute("class", "button");
+a3Button.setAttribute("type", "button");
+a3Button.setAttribute("value", "3");
+a4Button.setAttribute("class", "button");
+a4Button.setAttribute("type", "button");
+a4Button.setAttribute("value", "answer 4");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
 // be sure to change the google placeholder link to a high scores link
@@ -116,10 +132,12 @@ startButton.addEventListener("click", function startTimer(){
 function testQuestions(){
   for (let i = 0; (i < questionsObj.questions.length) ; i++) {
     h1El.textContent = questionsObj.questions[i];
-    pEl.appendChild(a1Button);
-    pEl.appendChild(a2Button);
-    pEl.appendChild(a3Button);
-    pEl.appendChild(a4Button);
+    startButton.setAttribute("class", "hide-me");
+    pEl.setAttribute("class", "hide-me");
+    mainDiv.appendChild(a1Button);
+    mainDiv.appendChild(a2Button);
+    mainDiv.appendChild(a3Button);
+    mainDiv.appendChild(a4Button);
   }
 }
 
@@ -130,6 +148,14 @@ function timesUp() {
   // set up div content to allow the usual score display and name entry
 
 }
+
+// function to return to the start screen - this needs to return everything on the screen to the beginning without removing scores
+
+testButton.addEventListener("click", function goHome() {
+  h1El.textContent = "Coding Quiz Challenge";
+  startButton.setAttribute("class", "button");
+  timeLeft = "xx";
+});
 
 /*
 Anything down here in the slag heap didn't work as intended. Revisit later.
