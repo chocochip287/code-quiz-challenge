@@ -1,9 +1,9 @@
 /*
-10/18/22
+10/19/22
 - Score doesn't display during the quiz - only at the end.
 - Need to set up question displays and inputs. Set up right/wrong feedback responses with a delay before presenting next question. Use a function to respond right/wrong depending on the answer.
-- Style the entire app.
-- set up .button assignment with a function that calls on initial loading then every time phase cycling occurs
+- Style the entire app. (todo: align buttons in their own div)
+
 */
 
 // core variables
@@ -16,7 +16,7 @@ var anchorEl = document.createElement("a");
 var mainDiv = document.createElement("div");
 var pEl = document.createElement("p");
 var h1El = document.createElement("h1");
-var testDiv = document.createElement("div");
+var resultDiv = document.createElement("div");
 
 // input and submission button for scores
 var initInput = document.createElement("input");
@@ -54,7 +54,7 @@ mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
 mainDiv.appendChild(startButton);
 mainDiv.appendChild(testButton);
-mainDiv.appendChild(testDiv);
+mainDiv.appendChild(resultDiv);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
 navEl.appendChild(navDivTime);
