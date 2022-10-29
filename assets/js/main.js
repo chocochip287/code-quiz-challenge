@@ -73,6 +73,10 @@ mainDiv.appendChild(resultDiv);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
 navEl.appendChild(navDivTime);
+mainDiv.appendChild(a1Button);
+mainDiv.appendChild(a2Button);
+mainDiv.appendChild(a3Button);
+mainDiv.appendChild(a4Button);
 
 // setting up attributes for the appended elements
 
@@ -83,10 +87,10 @@ mainDiv.setAttribute("class", "mainDiv");
 buttonDiv.setAttribute("style", "display: flex; justify-content: ")
 startButton.setAttribute("class", "button")
 testButton.setAttribute("class", "hide-me");
-a1Button.setAttribute("class", "button");
-a2Button.setAttribute("class", "button");
-a3Button.setAttribute("class", "button");
-a4Button.setAttribute("class", "button");
+a1Button.setAttribute("class", "hide-me");
+a2Button.setAttribute("class", "hide-me");
+a3Button.setAttribute("class", "hide-me");
+a4Button.setAttribute("class", "hide-me");
 homeButton.setAttribute("class", "hide-me");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
@@ -136,25 +140,34 @@ startButton.addEventListener("click", function beginTest(){
 
 function testPhase(){
     startButton.setAttribute("class", "hide-me");
-    pEl.setAttribute("class", "hide-me");
-    mainDiv.appendChild(a1Button);
-    mainDiv.appendChild(a2Button);
-    mainDiv.appendChild(a3Button);
-    mainDiv.appendChild(a4Button);
+    pEl.textContent = "";
+    a1Button.setAttribute("class", "button");
+    a2Button.setAttribute("class", "button");
+    a3Button.setAttribute("class", "button");
+    a4Button.setAttribute("class", "button");
+    question1();
 }
 
+function question1() {
+  pEl.textContent = questionsObj.questions[0];
+  a1Button.textContent = "1. " + answersObj.q0[0];
+  a2Button.textContent = "2. " + answersObj.q0[1];
+  a3Button.textContent = "3. " + answersObj.q0[2];
+  a4Button.textContent = "4. " + answersObj.q0[3];
+}
 
 // function that runs if the user runs out of time.
 
 function timesUp() {
   h1El.textContent = "oh noes, you ran out of time!";
+  pEl.textContent = ""
   // set up div content to allow the usual score display and name entry
 
   // set up "go home" functionality
-  mainDiv.removeChild(a1Button);
-  mainDiv.removeChild(a2Button);
-  mainDiv.removeChild(a3Button);
-  mainDiv.removeChild(a4Button);
+  a1Button.setAttribute("class", "hide-me");
+  a2Button.setAttribute("class", "hide-me");
+  a3Button.setAttribute("class", "hide-me");
+  a4Button.setAttribute("class", "hide-me");
   mainDiv.appendChild(homeButton);
   homeButton.setAttribute("class", "button");
 };
@@ -168,7 +181,7 @@ homeButton.addEventListener("click", function goHome() {
   timeLeft = "xx";
   navDivTime.textContent = "Time left: " + timeLeft;
   startButton.setAttribute("class", "button");
-  pEl.setAttribute("class", "");
+  pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time while incorrect answers will reduce it."
   homeButton.setAttribute("class", "hide-me");
 });
 
