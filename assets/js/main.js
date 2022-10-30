@@ -9,25 +9,39 @@
 // core variables
 
 var body = document.body;
+// header and its content
 var header = document.createElement("header");
 var navEl = document.createElement("nav");
 var navDivTime = document.createElement("div");
 var anchorEl = document.createElement("a");
+// main content div - houses prompts, questions, and general information
 var mainDiv = document.createElement("div");
 var pEl = document.createElement("p");
 var h1El = document.createElement("h1");
+// div that displays whether an answer is correct or incorrect
 var resultDiv = document.createElement("div");
+// div that holds test buttons
 var buttonDiv = document.createElement("div");
+// div that will house score related content
+var scoresDiv = document.createElement("div");
+// text field exclusively for the scores div
+var scoresP = document.createElement("p");
+// input box for taking user's initials
+var scoresInput = document.createElement("input");
+// empty array to store tester initials
+var initials = [];
+// global variable to hold a given tester's initials and score
+var scoreEntry;
 // empty array to be used for locally storing scores
 var scores = [];
 // global variable to count question number
-var questionCounter
+var questionCounter;
 // variable to allow external control of the timer
 var timerStopper = 0;
 
 // input and submission button for scores
 var initInput = document.createElement("input");
-var scoreSubmit = document.createElement("input");
+var scoreSubmit = document.createElement("button");
 
 // more buttons
 var startButton = document.createElement("button");
@@ -50,8 +64,8 @@ anchorEl.textContent = "this will be the high scores link";
 navDivTime.textContent = "Time left: " + timeLeft;
 h1El.textContent = "Coding Quiz Challenge";
 pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time while incorrect answers will reduce it.";
-startButton.textContent = "Start!"
-testButton.textContent = "test"
+startButton.textContent = "Start!";
+testButton.textContent = "test";
 a1Button.textContent = "1";
 a2Button.textContent = "2";
 a3Button.textContent = "3";
@@ -65,6 +79,7 @@ var buttons = document.querySelectorAll("input");
 // appending elements into the body tag
 body.appendChild(header);
 body.appendChild(mainDiv);
+body.appendChild(scoresDiv);
 mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
 mainDiv.appendChild(buttonDiv);
@@ -85,6 +100,8 @@ body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
 header.setAttribute("style", "margin: 5px; border: 2px solid white")
 mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
+scoresDiv.setAttribute("class", "hide-me");
+scoresDiv.setAttribute("id", "scoresDiv");
 buttonDiv.setAttribute("style", "display: flex; flex-direction: column; justify-content: flex-start;")
 startButton.setAttribute("class", "button")
 testButton.setAttribute("class", "hide-me");
@@ -92,6 +109,7 @@ a1Button.setAttribute("class", "hide-me");
 a2Button.setAttribute("class", "hide-me");
 a3Button.setAttribute("class", "hide-me");
 a4Button.setAttribute("class", "hide-me");
+scoreSubmit.setAttribute("class", "hide-me");
 homeButton.setAttribute("class", "hide-me");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
@@ -141,10 +159,10 @@ startButton.addEventListener("click", function beginTest(){
 });
 
 // function to transition from the home screen to the test
-
 function testPhase(){
   // readies the content elements
   startButton.setAttribute("class", "hide-me");
+  resultDiv.setAttribute("class", "");
   pEl.textContent = "";
   a1Button.setAttribute("class", "button");
   a2Button.setAttribute("class", "button");
@@ -158,13 +176,13 @@ function testPhase(){
 function correctAnswer() {
   myScore += 20;
   timeLeft += 10;
-  resultDiv.textContent = "Correct!"
+  resultDiv.textContent = "Your last answer was correct!"
 }
 
 // function to decrease remaining time by five seconds if the response is wrong
 function wrongAnswer() {
   timeLeft -= 5;
-  resultDiv.textContent = "Wrong!"
+  resultDiv.textContent = "Your last answer was wrong!"
 }
 
 // question functions 
@@ -305,6 +323,10 @@ function testComplete() {
     navDivTime.textContent = "not sure how you messed this up, dev.";
   }
   timerStopper = 1;
+
+  // this function's final line should call the function to display tester name input. leave resultDiv at first.
+
+  // console logs for testing
   console.log("score = " + myScore);
   myScore = myScore * timeLeft;
   console.log("write me bro");
@@ -314,7 +336,8 @@ function testComplete() {
 
 function timesUp() {
   h1El.textContent = "oh noes, you ran out of time!";
-  pEl.textContent = ""
+  pEl.textContent = "Your final score is " + myScore + "."
+  resultDiv.setAttribute("class", "hide-me");
   // set up div content to allow the usual score display and name entry
 
   // set up "go home" functionality
@@ -326,6 +349,9 @@ function timesUp() {
   homeButton.setAttribute("class", "button");
 };
 
+// function to display name entry on timeout or test completion
+
+// function for score screen content to become active
 
 // function to return to the start screen - this needs to return everything on the screen to the beginning without removing scores
 
@@ -338,6 +364,7 @@ homeButton.addEventListener("click", function goHome() {
   pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time while incorrect answers will reduce it."
   homeButton.setAttribute("class", "hide-me");
   myScore = 0;
+  resultDiv.setAttribute("class", "hide-me");
   // add loop(s) to clear any event listeners still on answer buttons
 });
 
