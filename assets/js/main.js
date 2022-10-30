@@ -1,10 +1,9 @@
 /*
-10/19/22
+10/29/22
 - Score doesn't display during the quiz - only at the end.
-- Need to set up question displays and inputs. Set up right/wrong feedback responses with a delay before presenting next question. Use a function to respond right/wrong depending on the answer.
+- Style the text in resultDiv.
 - Style the entire app. (todo: align buttons in their own div)
 - scores should be stored locally in an array
-- style buttonDiv to align buttons and list in column
 */
 
 // core variables
@@ -23,6 +22,8 @@ var buttonDiv = document.createElement("div");
 var scores = [];
 // global variable to count question number
 var questionCounter
+// variable to allow external control of the timer
+var timerStopper = 0;
 
 // input and submission button for scores
 var initInput = document.createElement("input");
@@ -40,7 +41,7 @@ var testButton = document.createElement("button");
 
 // test misc variables 
 var timeLeft = "xx";
-var score = 0;
+var myScore = 0;
 var answered = 0;
 
 // core text content
@@ -73,10 +74,10 @@ mainDiv.appendChild(resultDiv);
 header.appendChild(navEl);
 navEl.appendChild(anchorEl);
 navEl.appendChild(navDivTime);
-mainDiv.appendChild(a1Button);
-mainDiv.appendChild(a2Button);
-mainDiv.appendChild(a3Button);
-mainDiv.appendChild(a4Button);
+buttonDiv.appendChild(a1Button);
+buttonDiv.appendChild(a2Button);
+buttonDiv.appendChild(a3Button);
+buttonDiv.appendChild(a4Button);
 
 // setting up attributes for the appended elements
 
@@ -84,7 +85,7 @@ body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
 header.setAttribute("style", "margin: 5px; border: 2px solid white")
 mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
-buttonDiv.setAttribute("style", "display: flex; justify-content: ")
+buttonDiv.setAttribute("style", "display: flex; flex-direction: column; justify-content: flex-start;")
 startButton.setAttribute("class", "button")
 testButton.setAttribute("class", "hide-me");
 a1Button.setAttribute("class", "hide-me");
@@ -94,6 +95,7 @@ a4Button.setAttribute("class", "hide-me");
 homeButton.setAttribute("class", "hide-me");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
+resultDiv.setAttribute("class", "hide-me");
 // be sure to change the google placeholder link to a high scores link
 anchorEl.setAttribute("href", "https://www.google.com");
 
@@ -112,7 +114,7 @@ var answersObj = {
   q2: ["Duplicates all values in the array", "Removes the last element of an array", "Deletes the entire array", "Changes the array values to Starburst flavors"],
   // [3] is correct
   q3: ["true", "5", "Go Eagles!", "false"],
-  // [1] is correct
+  // [2] is correct
   q4: ["i + 5", "i--", "i++", "i**"]
 }
 
@@ -122,12 +124,14 @@ startButton.addEventListener("click", function beginTest(){
   testPhase();
   navDivTime.textContent = "Time left: " + timeLeft + " seconds.";
   var testTimer = setInterval(function () {
-    if (timeLeft > 1) {
+    if (timeLeft > 1 && timerStopper === 0) {
       navDivTime.textContent = "Time left: " + timeLeft + " seconds.";
       timeLeft--;
-    } else if (timeLeft === 1) {
+    } else if (timeLeft === 1 && timerStopper === 0) {
       navDivTime.textContent = "Time left: " + timeLeft + " second.";
       timeLeft--;
+    } else if (timerStopper === 1) {
+      clearInterval(testTimer);
     } else {
       navDivTime.textContent = "Time's up!";
       timesUp();
@@ -139,23 +143,164 @@ startButton.addEventListener("click", function beginTest(){
 // function to transition from the home screen to the test
 
 function testPhase(){
-    startButton.setAttribute("class", "hide-me");
-    pEl.textContent = "";
-    a1Button.setAttribute("class", "button");
-    a2Button.setAttribute("class", "button");
-    a3Button.setAttribute("class", "button");
-    a4Button.setAttribute("class", "button");
-    question1();
+  // readies the content elements
+  startButton.setAttribute("class", "hide-me");
+  pEl.textContent = "";
+  a1Button.setAttribute("class", "button");
+  a2Button.setAttribute("class", "button");
+  a3Button.setAttribute("class", "button");
+  a4Button.setAttribute("class", "button");
+  // calls the first question
+  question1();
 }
 
+// function to award points and increase time on a correct answer
+function correctAnswer() {
+  myScore += 20;
+  timeLeft += 10;
+  resultDiv.textContent = "Correct!"
+}
+
+// function to decrease remaining time by five seconds if the response is wrong
+function wrongAnswer() {
+  timeLeft -= 5;
+  resultDiv.textContent = "Wrong!"
+}
+
+// question functions 
 function question1() {
+  // Q1's correct answer is [2]
   pEl.textContent = questionsObj.questions[0];
   a1Button.textContent = "1. " + answersObj.q0[0];
   a2Button.textContent = "2. " + answersObj.q0[1];
   a3Button.textContent = "3. " + answersObj.q0[2];
   a4Button.textContent = "4. " + answersObj.q0[3];
+  a1Button.addEventListener("click", wrongAnswer);
+  a1Button.addEventListener("click", question2);
+  a2Button.addEventListener("click", wrongAnswer);
+  a2Button.addEventListener("click", question2);
+  a3Button.addEventListener("click", correctAnswer);
+  a3Button.addEventListener("click", question2);
+  a4Button.addEventListener("click", wrongAnswer);
+  a4Button.addEventListener("click", question2);
 }
 
+function question2() {
+  // Q2's correct answer is [0]
+  a1Button.removeEventListener("click", wrongAnswer);
+  a1Button.removeEventListener("click", question2);
+  a2Button.removeEventListener("click", wrongAnswer);
+  a2Button.removeEventListener("click", question2);
+  a3Button.removeEventListener("click", correctAnswer);
+  a3Button.removeEventListener("click", question2);
+  a4Button.removeEventListener("click", wrongAnswer);
+  a4Button.removeEventListener("click", question2)
+  pEl.textContent = questionsObj.questions[1];
+  a1Button.textContent = "1. " + answersObj.q1[0];
+  a2Button.textContent = "2. " + answersObj.q1[1];
+  a3Button.textContent = "3. " + answersObj.q1[2];
+  a4Button.textContent = "4. " + answersObj.q1[3];
+  a1Button.addEventListener("click", correctAnswer);
+  a1Button.addEventListener("click", question3);
+  a2Button.addEventListener("click", wrongAnswer);
+  a2Button.addEventListener("click", question3);
+  a3Button.addEventListener("click", wrongAnswer);
+  a3Button.addEventListener("click", question3);
+  a4Button.addEventListener("click", wrongAnswer);
+  a4Button.addEventListener("click", question3);
+}
+
+function question3() {
+  // Q3's correct answer is [1]
+  a1Button.removeEventListener("click", correctAnswer);
+  a1Button.removeEventListener("click", question3);
+  a2Button.removeEventListener("click", wrongAnswer);
+  a2Button.removeEventListener("click", question3);
+  a3Button.removeEventListener("click", wrongAnswer);
+  a3Button.removeEventListener("click", question3);
+  a4Button.removeEventListener("click", wrongAnswer);
+  a4Button.removeEventListener("click", question3)
+  pEl.textContent = questionsObj.questions[2];
+  a1Button.textContent = "1. " + answersObj.q2[0];
+  a2Button.textContent = "2. " + answersObj.q2[1];
+  a3Button.textContent = "3. " + answersObj.q2[2];
+  a4Button.textContent = "4. " + answersObj.q2[3];
+  a1Button.addEventListener("click", wrongAnswer);
+  a1Button.addEventListener("click", question4);
+  a2Button.addEventListener("click", correctAnswer);
+  a2Button.addEventListener("click", question4);
+  a3Button.addEventListener("click", wrongAnswer);
+  a3Button.addEventListener("click", question4);
+  a4Button.addEventListener("click", wrongAnswer);
+  a4Button.addEventListener("click", question4);
+}
+
+function question4() {
+  // Q4's correct answer is [3]
+  a1Button.removeEventListener("click", correctAnswer);
+  a1Button.removeEventListener("click", question4);
+  a2Button.removeEventListener("click", wrongAnswer);
+  a2Button.removeEventListener("click", question4);
+  a3Button.removeEventListener("click", wrongAnswer);
+  a3Button.removeEventListener("click", question4);
+  a4Button.removeEventListener("click", wrongAnswer);
+  a4Button.removeEventListener("click", question4)
+  pEl.textContent = questionsObj.questions[3];
+  a1Button.textContent = "1. " + answersObj.q3[0];
+  a2Button.textContent = "2. " + answersObj.q3[1];
+  a3Button.textContent = "3. " + answersObj.q3[2];
+  a4Button.textContent = "4. " + answersObj.q3[3];
+  a1Button.addEventListener("click", wrongAnswer);
+  a1Button.addEventListener("click", question5);
+  a2Button.addEventListener("click", wrongAnswer);
+  a2Button.addEventListener("click", question5);
+  a3Button.addEventListener("click", wrongAnswer);
+  a3Button.addEventListener("click", question5);
+  a4Button.addEventListener("click", correctAnswer);
+  a4Button.addEventListener("click", question5);
+}
+
+function question5() {
+  // Q5's correct answer is [2]
+  a1Button.removeEventListener("click", correctAnswer);
+  a1Button.removeEventListener("click", question4);
+  a2Button.removeEventListener("click", wrongAnswer);
+  a2Button.removeEventListener("click", question4);
+  a3Button.removeEventListener("click", wrongAnswer);
+  a3Button.removeEventListener("click", question4);
+  a4Button.removeEventListener("click", wrongAnswer);
+  a4Button.removeEventListener("click", question4)
+  pEl.textContent = questionsObj.questions[4];
+  a1Button.textContent = "1. " + answersObj.q4[0];
+  a2Button.textContent = "2. " + answersObj.q4[1];
+  a3Button.textContent = "3. " + answersObj.q4[2];
+  a4Button.textContent = "4. " + answersObj.q4[3];
+  a1Button.addEventListener("click", wrongAnswer);
+  a1Button.addEventListener("click", testComplete);
+  a2Button.addEventListener("click", wrongAnswer);
+  a2Button.addEventListener("click", testComplete);
+  a3Button.addEventListener("click", correctAnswer);
+  a3Button.addEventListener("click", testComplete);
+  a4Button.addEventListener("click", wrongAnswer);
+  a4Button.addEventListener("click", testComplete);
+}
+
+// function to move to the score entry screen assuming the test was completed
+function testComplete() {
+  a1Button.removeEventListener("click", correctAnswer);
+  a1Button.removeEventListener("click", question5);
+  a2Button.removeEventListener("click", wrongAnswer);
+  a2Button.removeEventListener("click", question5);
+  a3Button.removeEventListener("click", wrongAnswer);
+  a3Button.removeEventListener("click", question5);
+  a4Button.removeEventListener("click", wrongAnswer);
+  a4Button.removeEventListener("click", question5);
+  timerStopper = 1;
+  console.log("score = " + myScore);
+  myScore = myScore * timeLeft;
+  console.log("write me bro");
+  console.log("Your score plus your time bonus is: " + myScore);
+}
 // function that runs if the user runs out of time.
 
 function timesUp() {
@@ -183,25 +328,13 @@ homeButton.addEventListener("click", function goHome() {
   startButton.setAttribute("class", "button");
   pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time while incorrect answers will reduce it."
   homeButton.setAttribute("class", "hide-me");
+  myScore = 0;
+  // add loop(s) to clear any event listeners still on answer buttons
 });
 
 /*
-Anything down here in the slag heap didn't work as intended or is meant to be fleshed out later.
+Thoughts for future functionality
 ---------------
 // loop(s) for mass class assignment
-// assigns all input tags to the button class
-/*
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].setAttribute("class", "button")
-}
-
-// functions for collecting and rendering score data
-
-function renderScores() {
-
-}
-
-function init() {
-  //TODO load the scores from localstorage
-}
+// loop(s) for button reassignment in question functions
 */
