@@ -295,6 +295,15 @@ function testComplete() {
   a3Button.removeEventListener("click", question5);
   a4Button.removeEventListener("click", wrongAnswer);
   a4Button.removeEventListener("click", question5);
+  if (timeLeft > 1 && timerStopper === 0) {
+    navDivTime.textContent = "Time left: " + timeLeft + " seconds.";
+    timeLeft--;
+  } else if (timeLeft === 1 && timerStopper === 0) {
+    navDivTime.textContent = "Time left: " + timeLeft + " second.";
+    timeLeft--;
+  } else {
+    navDivTime.textContent = "not sure how you messed this up, dev.";
+  }
   timerStopper = 1;
   console.log("score = " + myScore);
   myScore = myScore * timeLeft;
