@@ -27,7 +27,7 @@ var scoresDiv = document.createElement("div");
 // text field exclusively for the scores div
 var scoresP = document.createElement("p");
 // input box for taking user's initials
-var scoresInput = document.createElement("input");
+var initEntry = document.createElement("input");
 // empty array to store tester initials
 var initials = [];
 // global variable to hold a given tester's initials and score
@@ -39,10 +39,6 @@ var questionCounter;
 // variable to allow external control of the timer
 var timerStopper = 0;
 
-// input and submission button for scores
-var initInput = document.createElement("input");
-var scoreSubmit = document.createElement("button");
-
 // more buttons
 var startButton = document.createElement("button");
 var a1Button = document.createElement("button");
@@ -52,6 +48,8 @@ var a4Button = document.createElement("button");
 var homeButton = document.createElement("button");
 // special button for testing page content and function - not intended for final release
 var testButton = document.createElement("button");
+// submission button for scores
+var scoreSubmit = document.createElement("button");
 
 // test misc variables 
 var timeLeft = "xx";
@@ -79,10 +77,11 @@ var buttons = document.querySelectorAll("input");
 // appending elements into the body tag
 body.appendChild(header);
 body.appendChild(mainDiv);
-body.appendChild(scoresDiv);
 mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
+mainDiv.appendChild(scoresDiv);
 mainDiv.appendChild(buttonDiv);
+scoresDiv.appendChild(initEntry);
 buttonDiv.appendChild(startButton);
 buttonDiv.appendChild(testButton);
 mainDiv.appendChild(resultDiv);
@@ -93,6 +92,7 @@ buttonDiv.appendChild(a1Button);
 buttonDiv.appendChild(a2Button);
 buttonDiv.appendChild(a3Button);
 buttonDiv.appendChild(a4Button);
+buttonDiv.appendChild(homeButton);
 
 // setting up attributes for the appended elements
 
@@ -100,19 +100,25 @@ body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
 header.setAttribute("style", "margin: 5px; border: 2px solid white")
 mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
+mainDiv.setAttribute("id", "mainDiv");
+h1El.setAttribute("id", "mainDivH1");
+pEl.setAttribute("id", "mainDivP");
 scoresDiv.setAttribute("class", "hide-me");
 scoresDiv.setAttribute("id", "scoresDiv");
 buttonDiv.setAttribute("style", "display: flex; flex-direction: column; justify-content: flex-start;")
-startButton.setAttribute("class", "button")
+buttonDiv.setAttribute("id", "buttonDiv");
+startButton.setAttribute("class", "button");
 testButton.setAttribute("class", "hide-me");
 a1Button.setAttribute("class", "hide-me");
 a2Button.setAttribute("class", "hide-me");
 a3Button.setAttribute("class", "hide-me");
 a4Button.setAttribute("class", "hide-me");
+homeButton.setAttribute("class", "hide-me");
 scoreSubmit.setAttribute("class", "hide-me");
 homeButton.setAttribute("class", "hide-me");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
+resultDiv.setAttribute("id", "resultDiv");
 resultDiv.setAttribute("class", "hide-me");
 // be sure to change the google placeholder link to a high scores link
 anchorEl.setAttribute("href", "https://www.google.com");
@@ -338,18 +344,22 @@ function timesUp() {
   h1El.textContent = "oh noes, you ran out of time!";
   pEl.textContent = "Your final score is " + myScore + "."
   resultDiv.setAttribute("class", "hide-me");
-  // set up div content to allow the usual score display and name entry
 
-  // set up "go home" functionality
+  // button swaps
   a1Button.setAttribute("class", "hide-me");
   a2Button.setAttribute("class", "hide-me");
   a3Button.setAttribute("class", "hide-me");
   a4Button.setAttribute("class", "hide-me");
-  mainDiv.appendChild(homeButton);
   homeButton.setAttribute("class", "button");
+  // opens initials input
+  nameEntry();
 };
 
 // function to display name entry on timeout or test completion
+
+function nameEntry() {
+  scoresDiv.setAttribute("class", "");
+}
 
 // function for score screen content to become active
 
@@ -365,6 +375,7 @@ homeButton.addEventListener("click", function goHome() {
   homeButton.setAttribute("class", "hide-me");
   myScore = 0;
   resultDiv.setAttribute("class", "hide-me");
+  scoresDiv.setAttribute("class", "hide-me");
   // add loop(s) to clear any event listeners still on answer buttons
 });
 

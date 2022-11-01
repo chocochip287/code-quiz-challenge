@@ -28,6 +28,11 @@
     font-size: 22px;
 }
 
+#resultDiv {
+    margin-top: 10px;
+    font-style: italic;
+}
+
 .hide-me {
     display: none;
 }
