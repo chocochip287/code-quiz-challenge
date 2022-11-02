@@ -59,7 +59,7 @@ var answered = 0;
 
 // core text content
 
-anchorEl.textContent = "this will be the high scores link";
+anchorEl.textContent = "View High Scores";
 navDivTime.textContent = "Time left: " + timeLeft;
 h1El.textContent = "Coding Quiz Challenge";
 pEl.textContent = "Try to answer the following JavaScript related questions before time runs out. Correct answers will extend your time while incorrect answers will reduce it.";
@@ -106,12 +106,13 @@ buttonDiv.appendChild(homeButton);
 // setting up attributes for the appended elements
 
 body.setAttribute("style", "background: rgb(106, 121, 149); height: 95vh;");
-header.setAttribute("style", "margin: 5px; border: 2px solid white")
-mainDiv.setAttribute("style", "padding: 30px; border: 2px solid black; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
+header.setAttribute("style", "margin: 5px")
+mainDiv.setAttribute("style", "padding: 30px; margin: 5px; display: flex; justify-content: center; align-items: center; flex-direction: column;");
 mainDiv.setAttribute("class", "mainDiv");
 mainDiv.setAttribute("id", "mainDiv");
 h1El.setAttribute("id", "mainDivH1");
 pEl.setAttribute("id", "mainDivP");
+anchorEl.setAttribute("id", "aEl");
 scoreP0.setAttribute("class", "hide-me");
 scoreP1.setAttribute("class", "hide-me");
 scoreP2.setAttribute("class", "hide-me");
@@ -141,11 +142,14 @@ homeButton.setAttribute("class", "hide-me");
 usernameSubmit.setAttribute("class", "hide-me");
 homeButton.setAttribute("class", "hide-me");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
-navDivTime.setAttribute("style", "border: solid 1px red")
 resultDiv.setAttribute("id", "resultDiv");
 resultDiv.setAttribute("class", "hide-me");
 // be sure to change the google placeholder link to a high scores link
-anchorEl.setAttribute("href", "https://www.google.com");
+anchorEl.setAttribute("href", "#mainDivP");
+
+// event listener to make the high scores link call the scores content function
+
+document.querySelector("#aEl").addEventListener("click", showScores);
 
 var questionsObj = {
   questions: ["Which of the following is the primary role of JavaScript in web design?", "What is the result of the operation 4 % 2?", "What does the pop() method do to an array?", "What will the console output if a user enters 'console.log(isNaN(5));?", "Which option increases the value of i by one each time it occurs?"]
@@ -218,6 +222,11 @@ function wrongAnswer() {
 // question functions 
 function question1() {
   // Q1's correct answer is [2]
+  // ensures function calls for testComplete are removed from prior tests
+  a1Button.removeEventListener("click", testComplete);
+  a2Button.removeEventListener("click", testComplete);
+  a3Button.removeEventListener("click", testComplete);
+  a4Button.removeEventListener("click", testComplete);
   pEl.textContent = questionsObj.questions[0];
   a1Button.textContent = "1. " + answersObj.q0[0];
   a2Button.textContent = "2. " + answersObj.q0[1];
@@ -356,12 +365,7 @@ function testComplete() {
 
   // this function's final line should call the function to display tester name input. leave resultDiv at first.
   nameEntry();
-
-  // console logs for testing
-  console.log("score = " + myScore);
   myScore = myScore * timeLeft;
-  console.log("write me bro");
-  console.log("Your score plus your time bonus is: " + myScore);
 }
 // function that runs if the user runs out of time.
 
@@ -386,13 +390,16 @@ function nameEntry() {
   scoresDiv.setAttribute("class", "");
   usernameEntry.setAttribute("class", "");
   usernameSubmit.setAttribute("class", "button");
+  a1Button.setAttribute("class", "hide-me");
+  a2Button.setAttribute("class", "hide-me");
+  a3Button.setAttribute("class", "hide-me");
+  a4Button.setAttribute("class", "hide-me");
 }
 
 // function to collect user's name then push the input to local storage once name is submitted
 
 usernameSubmit.addEventListener("click", collectUsername)
 function collectUsername() {
-  console.log("write me too, bro");
 
   var username = document.querySelector("#usernameEntry").value
 
@@ -471,7 +478,9 @@ function showScores() {
   scoreP4.setAttribute("class", "");
   scoreP4.textContent = scoreKeeper.name[4] + " - " + scoreKeeper.score[4];
   } else {
-    console.log("something went wrong there, boss");
+    startButton.setAttribute("class", "hide-me");
+    scoreP0.setAttribute("class", "");
+    scoreP0.textContent = "You'll have to get some scores first, boss.";
   }
 }
 
@@ -494,6 +503,9 @@ homeButton.addEventListener("click", function goHome() {
   scoreP3.setAttribute("class", "hide-me");
   scoreP4.setAttribute("class", "hide-me");
   pEl.setAttribute("class", "");
+  resultDiv.textContent = "";
+  timerStopper = 0;
+
   // add loop(s) to clear any event listeners still on answer buttons
 });
 
@@ -501,6 +513,7 @@ homeButton.addEventListener("click", function goHome() {
 Thoughts for future functionality
 ---------------
 - loop(s) for mass class assignment, specifically hide/reveal functionality given all of the appends
+- loop to ensure that event listeners are cleared from test answer buttons
 - loop(s) or generally more efficient design for button reassignment in question functions
 - add functionality to sort the scoreKeeper values
 - never ever ever design something like this without editing the base HTML ever again
