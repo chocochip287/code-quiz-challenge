@@ -1,9 +1,6 @@
 /*
-10/29/22
-- Score doesn't display during the quiz - only at the end.
-- Style the text in resultDiv.
-- Style the entire app. (todo: align buttons in their own div)
-- scores should be stored locally in an array
+11/1/22
+- MVP ready. Future development considerations at the end.
 */
 
 // core variables
@@ -24,18 +21,20 @@ var resultDiv = document.createElement("div");
 var buttonDiv = document.createElement("div");
 // div that will house score related content
 var scoresDiv = document.createElement("div");
-// text field exclusively for the scores div
+// text field exclusively for the scores div and individual scores
 var scoresP = document.createElement("p");
-// input box for taking user's initials
-var initEntry = document.createElement("input");
-// empty array to store tester initials
-var initials = [];
-// global variable to hold a given tester's initials and score
-var scoreEntry;
-// empty array to be used for locally storing scores
-var scores = [];
-// global variable to count question number
-var questionCounter;
+var scoreP0 = document.createElement("p");
+var scoreP1 = document.createElement("p");
+var scoreP2 = document.createElement("p");
+var scoreP3 = document.createElement("p");
+var scoreP4 = document.createElement("p");
+// input box for taking user's name
+var usernameEntry = document.createElement("input");
+// object to hold scores
+var scoreKeeper = {
+  name: [],
+  score: []
+};
 // variable to allow external control of the timer
 var timerStopper = 0;
 
@@ -50,6 +49,8 @@ var homeButton = document.createElement("button");
 var testButton = document.createElement("button");
 // submission button for scores
 var scoreSubmit = document.createElement("button");
+// submission button for username
+var usernameSubmit = document.createElement("button");
 
 // test misc variables 
 var timeLeft = "xx";
@@ -68,6 +69,7 @@ a1Button.textContent = "1";
 a2Button.textContent = "2";
 a3Button.textContent = "3";
 a4Button.textContent = "4";
+usernameSubmit.textContent = "Submit name"
 homeButton.textContent = "Go home?"
 
 // class and id selector variables, if I end up using them.
@@ -79,9 +81,14 @@ body.appendChild(header);
 body.appendChild(mainDiv);
 mainDiv.appendChild(h1El);
 mainDiv.appendChild(pEl);
+mainDiv.appendChild(scoreP0);
+mainDiv.appendChild(scoreP1);
+mainDiv.appendChild(scoreP2);
+mainDiv.appendChild(scoreP3);
+mainDiv.appendChild(scoreP4);
 mainDiv.appendChild(scoresDiv);
 mainDiv.appendChild(buttonDiv);
-scoresDiv.appendChild(initEntry);
+scoresDiv.appendChild(usernameEntry);
 buttonDiv.appendChild(startButton);
 buttonDiv.appendChild(testButton);
 mainDiv.appendChild(resultDiv);
@@ -92,7 +99,9 @@ buttonDiv.appendChild(a1Button);
 buttonDiv.appendChild(a2Button);
 buttonDiv.appendChild(a3Button);
 buttonDiv.appendChild(a4Button);
+buttonDiv.appendChild(usernameSubmit);
 buttonDiv.appendChild(homeButton);
+
 
 // setting up attributes for the appended elements
 
@@ -103,8 +112,23 @@ mainDiv.setAttribute("class", "mainDiv");
 mainDiv.setAttribute("id", "mainDiv");
 h1El.setAttribute("id", "mainDivH1");
 pEl.setAttribute("id", "mainDivP");
+scoreP0.setAttribute("class", "hide-me");
+scoreP1.setAttribute("class", "hide-me");
+scoreP2.setAttribute("class", "hide-me");
+scoreP3.setAttribute("class", "hide-me");
+scoreP4.setAttribute("class", "hide-me");
 scoresDiv.setAttribute("class", "hide-me");
+scoreP0.setAttribute("id", "sp0");
+scoreP1.setAttribute("id", "sp1");
+scoreP2.setAttribute("id", "sp2");
+scoreP3.setAttribute("id", "sp3");
+scoreP4.setAttribute("id", "sp4");
 scoresDiv.setAttribute("id", "scoresDiv");
+usernameEntry.setAttribute("id", "usernameEntry");
+usernameEntry.setAttribute("placeholder", "Type your name here.");
+usernameEntry.setAttribute("type", "text");
+usernameEntry.setAttribute("name", "username");
+usernameEntry.setAttribute("style", "text-align: center; margin-bottom: 3px;")
 buttonDiv.setAttribute("style", "display: flex; flex-direction: column; justify-content: flex-start;")
 buttonDiv.setAttribute("id", "buttonDiv");
 startButton.setAttribute("class", "button");
@@ -114,7 +138,7 @@ a2Button.setAttribute("class", "hide-me");
 a3Button.setAttribute("class", "hide-me");
 a4Button.setAttribute("class", "hide-me");
 homeButton.setAttribute("class", "hide-me");
-scoreSubmit.setAttribute("class", "hide-me");
+usernameSubmit.setAttribute("class", "hide-me");
 homeButton.setAttribute("class", "hide-me");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 navDivTime.setAttribute("style", "border: solid 1px red")
@@ -331,6 +355,7 @@ function testComplete() {
   timerStopper = 1;
 
   // this function's final line should call the function to display tester name input. leave resultDiv at first.
+  nameEntry();
 
   // console logs for testing
   console.log("score = " + myScore);
@@ -351,7 +376,7 @@ function timesUp() {
   a3Button.setAttribute("class", "hide-me");
   a4Button.setAttribute("class", "hide-me");
   homeButton.setAttribute("class", "button");
-  // opens initials input
+  // opens username input
   nameEntry();
 };
 
@@ -359,9 +384,96 @@ function timesUp() {
 
 function nameEntry() {
   scoresDiv.setAttribute("class", "");
+  usernameEntry.setAttribute("class", "");
+  usernameSubmit.setAttribute("class", "button");
+}
+
+// function to collect user's name then push the input to local storage once name is submitted
+
+usernameSubmit.addEventListener("click", collectUsername)
+function collectUsername() {
+  console.log("write me too, bro");
+
+  var username = document.querySelector("#usernameEntry").value
+
+  if (username === "") {
+    usernameEntry.setAttribute("placeholder", "You have to provide a name!")
+  } else {
+    localStorage.setItem("username", username);
+    pushScore();
+    showScores();
+  }
+
+}
+
+// function to add the saved username and score to the scores object
+
+function pushScore() {
+  var username = localStorage.getItem("username");
+
+  if (scoreKeeper.name.length < 5) {
+    scoreKeeper.name.push(username);
+    scoreKeeper.score.push(myScore);
+  } else {
+    scoreKeeper.name.shift();
+    scoreKeeper.score.shift();
+    scoreKeeper.name.push(username);
+    scoreKeeper.score.push(myScore);
+  }
 }
 
 // function for score screen content to become active
+
+function showScores() {
+  a1Button.setAttribute("class", "hide-me");
+  a2Button.setAttribute("class", "hide-me");
+  a3Button.setAttribute("class", "hide-me");
+  a4Button.setAttribute("class", "hide-me");
+  usernameSubmit.setAttribute("class", "hide-me");
+  homeButton.setAttribute("class", "button");
+  usernameEntry.setAttribute("class", "hide-me");
+  resultDiv.setAttribute("class", "hide-me");
+  pEl.setAttribute("class", "hide-me");
+
+  h1El.textContent = "Recent Scores"
+
+  if (scoreKeeper.name.length === 1) {
+  scoreP0.setAttribute("class", "");
+  scoreP0.textContent = scoreKeeper.name[0] + " - " + scoreKeeper.score[0];
+  } else if (scoreKeeper.name.length === 2) {
+  scoreP0.setAttribute("class", "");
+  scoreP0.textContent = scoreKeeper.name[0] + " - " + scoreKeeper.score[0];
+  scoreP1.setAttribute("class", "");
+  scoreP1.textContent = scoreKeeper.name[1] + " - " + scoreKeeper.score[1];
+  } else if (scoreKeeper.name.length === 3) {
+  scoreP0.setAttribute("class", "");
+  scoreP0.textContent = scoreKeeper.name[0] + " - " + scoreKeeper.score[0];
+  scoreP1.setAttribute("class", "");
+  scoreP1.textContent = scoreKeeper.name[1] + " - " + scoreKeeper.score[1];
+  scoreP2.setAttribute("class", "");
+  scoreP2.textContent = scoreKeeper.name[2] + " - " + scoreKeeper.score[2];
+  } else if (scoreKeeper.name.length === 4) {
+  scoreP0.textContent = scoreKeeper.name[0] + " - " + scoreKeeper.score[0];
+  scoreP1.setAttribute("class", "");
+  scoreP1.textContent = scoreKeeper.name[1] + " - " + scoreKeeper.score[1];
+  scoreP2.setAttribute("class", "");
+  scoreP2.textContent = scoreKeeper.name[2] + " - " + scoreKeeper.score[2];
+  scoreP3.setAttribute("class", "");
+  scoreP3.textContent = scoreKeeper.name[3] + " - " + scoreKeeper.score[3];
+  } else if (scoreKeeper.name.length === 5) {
+  scoreP0.textContent = scoreKeeper.name[0] + " - " + scoreKeeper.score[0];
+  scoreP1.setAttribute("class", "");
+  scoreP1.textContent = scoreKeeper.name[1] + " - " + scoreKeeper.score[1];
+  scoreP2.setAttribute("class", "");
+  scoreP2.textContent = scoreKeeper.name[2] + " - " + scoreKeeper.score[2];
+  scoreP3.setAttribute("class", "");
+  scoreP3.textContent = scoreKeeper.name[3] + " - " + scoreKeeper.score[3];
+  scoreP4.setAttribute("class", "");
+  scoreP4.textContent = scoreKeeper.name[4] + " - " + scoreKeeper.score[4];
+  } else {
+    console.log("something went wrong there, boss");
+  }
+}
 
 // function to return to the start screen - this needs to return everything on the screen to the beginning without removing scores
 
@@ -376,12 +488,20 @@ homeButton.addEventListener("click", function goHome() {
   myScore = 0;
   resultDiv.setAttribute("class", "hide-me");
   scoresDiv.setAttribute("class", "hide-me");
+  scoreP0.setAttribute("class", "hide-me");
+  scoreP1.setAttribute("class", "hide-me");
+  scoreP2.setAttribute("class", "hide-me");
+  scoreP3.setAttribute("class", "hide-me");
+  scoreP4.setAttribute("class", "hide-me");
+  pEl.setAttribute("class", "");
   // add loop(s) to clear any event listeners still on answer buttons
 });
 
 /*
 Thoughts for future functionality
 ---------------
-// loop(s) for mass class assignment
-// loop(s) for button reassignment in question functions
+- loop(s) for mass class assignment, specifically hide/reveal functionality given all of the appends
+- loop(s) or generally more efficient design for button reassignment in question functions
+- add functionality to sort the scoreKeeper values
+- never ever ever design something like this without editing the base HTML ever again
 */
