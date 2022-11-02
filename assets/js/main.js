@@ -418,7 +418,7 @@ function collectUsername() {
 function pushScore() {
   var username = localStorage.getItem("username");
 
-  if (scoreKeeper.name.length < 5) {
+  if (scoreKeeper.name.length < 6) {
     scoreKeeper.name.push(username);
     scoreKeeper.score.push(myScore);
   } else {
