@@ -144,7 +144,6 @@ homeButton.setAttribute("class", "hide-me");
 navEl.setAttribute("style", "display: flex; justify-content: space-between;");
 resultDiv.setAttribute("id", "resultDiv");
 resultDiv.setAttribute("class", "hide-me");
-// be sure to change the google placeholder link to a high scores link
 anchorEl.setAttribute("href", "#mainDivP");
 
 // event listener to make the high scores link call the scores content function
@@ -438,6 +437,7 @@ function showScores() {
   a4Button.setAttribute("class", "hide-me");
   usernameSubmit.setAttribute("class", "hide-me");
   homeButton.setAttribute("class", "button");
+  startButton.setAttribute("class", "hide-me");
   usernameEntry.setAttribute("class", "hide-me");
   resultDiv.setAttribute("class", "hide-me");
   pEl.setAttribute("class", "hide-me");
