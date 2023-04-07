@@ -502,10 +502,12 @@ homeButton.addEventListener("click", function goHome() {
   scoreP2.setAttribute("class", "hide-me");
   scoreP3.setAttribute("class", "hide-me");
   scoreP4.setAttribute("class", "hide-me");
+  usernameSubmit.setAttribute("class", "hide-me");
+  usernameEntry.setAttribute("value", "");
   pEl.setAttribute("class", "");
   resultDiv.textContent = "";
   timerStopper = 0;
-
+  document.getElementById("usernameEntry").value = "";
   // add loop(s) to clear any event listeners still on answer buttons
 });
 
@@ -516,5 +518,5 @@ Thoughts for future functionality
 - loop to ensure that event listeners are cleared from test answer buttons
 - loop(s) or generally more efficient design for button reassignment in question functions
 - add functionality to sort the scoreKeeper values
-- never ever ever design something like this without editing the base HTML ever again
+- tl;dr, git gud at loops. this was pain incarnate.
 */
